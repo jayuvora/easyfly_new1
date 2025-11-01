@@ -155,12 +155,54 @@
     .mobile-menu {
       transform: translateX(100%);
       transition: transform 0.3s ease-in-out;
-      background-color: #ffffff !important; /* Ensures solid white background */
-      box-shadow: -4px 0 6px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
+      background-color: #ffffff !important; /* 强制白色背景 */
     }
     
     .mobile-menu.active {
       transform: translateX(0);
+    }
+    
+    /* Mobile menu overlay */
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 40;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+    
+    .mobile-menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* Icon transition for menu button */
+    .menu-icon {
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+    
+    .menu-icon.hidden {
+      opacity: 0;
+      transform: rotate(180deg);
+    }
+    
+    .close-icon {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      opacity: 0;
+      transform: rotate(-180deg);
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+    
+    .close-icon.visible {
+      opacity: 1;
+      transform: rotate(0deg);
     }
     
     /* Responsive adjustments */
@@ -179,6 +221,16 @@
       }
       
       .process-step:not(:last-child):after {
+        display: none;
+      }
+      
+      /* Hide desktop navigation on mobile but keep the header container */
+      header nav {
+        display: none;
+      }
+      
+      /* Show Get Quote button only on desktop */
+      header .flex.items-center.space-x-4 button:not(#mobileMenuBtn) {
         display: none;
       }
     }
@@ -232,6 +284,7 @@
 </head>
 <body class="bg-white">
 
+  <!-- Header - Visible on all devices -->
   <header class="sticky top-0 z-50 w-full bg-background/90 backdrop-blur-md border-b border-border animate-fade-in">
     <div class="container mx-auto px-4 h-16 flex items-center justify-between">
       <div class="flex items-center">
@@ -248,29 +301,32 @@
       </nav>
       <div class="flex items-center space-x-4">
         <button class="hidden md:inline-flex bg-blue-600 text-white px-4 py-2 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg">Get Quote</button>
-        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-md hover:bg-gray-100">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-md hover:bg-gray-100 relative">
+          <!-- Hamburger Menu Icon -->
+          <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          <!-- Close Icon -->
+          <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
         </button>
-      </div>
-    </div>
-    
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-50 md:hidden">
-      <div class="p-4">
-        <button id="closeMobileMenu" class="p-2 rounded-md hover:bg-gray-100 ml-auto">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
-        </button>
-        <nav class="mt-8 space-y-4">
-          <a href="index.html" class="block text-muted-foreground hover:text-foreground transition-all duration-300">Home</a>
-          <a href="services.html" class="block text-ocean font-medium transition-all duration-300">Service</a>
-          <a href="destination.html" class="block text-muted-foreground hover:text-foreground transition-all duration-300">Destinations</a>
-          <a href="#about" class="block text-muted-foreground hover:text-foreground transition-all duration-300">About</a>
-          <a href="#contact" class="block text-muted-foreground hover:text-foreground transition-all duration-300">Contact</a>
-          <button class="w-full bg-blue-600 text-white px-4 py-2 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg">Get Quote</button>
-        </nav>
       </div>
     </div>
   </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobileMenuOverlay" class="mobile-menu-overlay md:hidden"></div>
+  
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-50 md:hidden">
+    <div class="p-4 bg-white">
+      <nav class="mt-8 space-y-4">
+        <a href="index.html" class="block text-muted-foreground hover:text-foreground transition-all duration-300">Home</a>
+        <a href="services.html" class="block text-ocean font-medium transition-all duration-300">Service</a>
+        <a href="destination.html" class="block text-muted-foreground hover:text-foreground transition-all duration-300">Destinations</a>
+        <a href="#about" class="block text-muted-foreground hover:text-foreground transition-all duration-300">About</a>
+        <a href="#contact" class="block text-muted-foreground hover:text-foreground transition-all duration-300">Contact</a>
+        <button class="w-full bg-blue-600 text-white px-4 py-2 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg">Get Quote</button>
+      </nav>
+    </div>
+  </div>
 
   <main>
     <!-- Hero Section -->
@@ -637,14 +693,43 @@
     document.addEventListener('DOMContentLoaded', function() {
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const mobileMenu = document.getElementById('mobileMenu');
-      const closeMobileMenu = document.getElementById('closeMobileMenu');
+      const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+      const menuIcon = mobileMenuBtn.querySelector('.menu-icon');
+      const closeIcon = mobileMenuBtn.querySelector('.close-icon');
 
       mobileMenuBtn.addEventListener('click', () => {
-        mobileMenu.classList.add('active');
+        const isMenuOpen = mobileMenu.classList.contains('active');
+        
+        if (isMenuOpen) {
+          // Close the menu
+          mobileMenu.classList.remove('active');
+          mobileMenuOverlay.classList.remove('active');
+          document.body.style.overflow = ''; // Restore scrolling
+          
+          // Show hamburger icon, hide close icon
+          menuIcon.classList.remove('hidden');
+          closeIcon.classList.remove('visible');
+        } else {
+          // Open the menu
+          mobileMenu.classList.add('active');
+          mobileMenuOverlay.classList.add('active');
+          document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+          
+          // Hide hamburger icon, show close icon
+          menuIcon.classList.add('hidden');
+          closeIcon.classList.add('visible');
+        }
       });
 
-      closeMobileMenu.addEventListener('click', () => {
+      // Close mobile menu when clicking on the overlay
+      mobileMenuOverlay.addEventListener('click', () => {
         mobileMenu.classList.remove('active');
+        mobileMenuOverlay.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+        
+        // Show hamburger icon, hide close icon
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.remove('visible');
       });
 
       // Close mobile menu when clicking on a link
@@ -652,6 +737,12 @@
       mobileMenuLinks.forEach(link => {
         link.addEventListener('click', () => {
           mobileMenu.classList.remove('active');
+          mobileMenuOverlay.classList.remove('active');
+          document.body.style.overflow = ''; // Restore scrolling
+          
+          // Show hamburger icon, hide close icon
+          menuIcon.classList.remove('hidden');
+          closeIcon.classList.remove('visible');
         });
       });
       
