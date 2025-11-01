@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Destinations - EasyFly | Explore Popular Travel Destinations</title>
+  <meta name="description" content="Explore amazing domestic and international destinations with EasyFly. From Goa to Bali, discover your next adventure with our curated travel experiences.">
+  <meta name="keywords" content="travel destinations, domestic tours, international trips, Goa, Kerala, Rajasthan, Bali, Dubai, Paris, Maldives, EasyFly">
+  <meta name="author" content="EasyFly Travel Agency">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Destinations - EasyFly | Explore Popular Travel Destinations">
+  <meta property="og:description" content="Explore amazing domestic and international destinations with EasyFly. From Goa to Bali, discover your next adventure with our curated travel experiences.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://easyfly.co.in/destination.html">
+  <meta property="og:image" content="https://easyfly.co.in/assets/easyfly_logo.png">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Destinations - EasyFly | Explore Popular Travel Destinations">
+  <meta name="twitter:description" content="Explore amazing domestic and international destinations with EasyFly. From Goa to Bali, discover your next adventure with our curated travel experiences.">
+  <meta name="twitter:image" content="https://easyfly.co.in/assets/easyfly_logo.png">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://easyfly.co.in/destination.html">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(to bottom right, rgb(224 242 254), rgb(233 213 255), rgb(248 224 255));
+        min-height: 100vh;
+    }
+
+    /* Keyframes for animations */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Added glow animation for the About section stats */
+    @keyframes glow {
+      0%, 100% { text-shadow: 0 0 5px rgba(0, 119, 182, 0.5); }
+      50% { text-shadow: 0 0 20px rgba(0, 119, 182, 1); }
+    }
+    
+    /* Animation classes */
+    .animate-fade-in {
+      animation: fadeIn 1s ease-out forwards;
+    }
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+    .animate-glow {
+        animation: glow 1.5s ease-in-out infinite;
+    }
+    
+    .delay-200 { animation-delay: 0.2s; }
+    
+    /* Tab animation */
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    /* Image hover effect */
+    .destination-card {
+      overflow: hidden;
+      border-radius: 0.75rem;
+    }
+    
+    .destination-card img {
+      transition: transform 0.7s ease-in-out;
+    }
+    
+    .destination-card:hover img {
+      transform: scale(1.1);
+    }
+    
+    .destination-overlay {
+      transform: translateY(calc(100% - 90px));
+      transition: transform 0.5s ease-in-out;
+    }
+    
+    .destination-card:hover .destination-overlay {
+      transform: translateY(0);
+    }
+    
+    .destination-details {
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out 0.3s;
+    }
+    
+    .destination-card:hover .destination-details {
+      opacity: 1;
+    }
+    
+    .price-tag {
+      background: linear-gradient(135deg, #0077b6, #00a8cc);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-block;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      animation: fadeIn 0.5s ease-out 0.4s forwards;
+      opacity: 0;
+    }
+    
+    .destination-card:hover .price-tag {
+      opacity: 1;
+    }
+    
+    /* WhatsApp floating button styles */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    
+    /* Mobile menu styles */
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+    }
+    
+    .mobile-menu.active {
+      transform: translateX(0);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-content p {
+        font-size: 1rem;
+      }
+      
+      .whatsapp-float {
+        bottom: 15px;
+        right: 15px;
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      
+      .destinations-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ocean: '#0077b6',
+            background: '#ffffff',
+            border: '#e5e7eb',
+            foreground: '#111827',
+            'muted-foreground': '#6b7280',
+            // Added colors for new sections
+            secondary: '#f3f4f6',
+            card: '#ffffff',
+          },
+          boxShadow: {
+            'shadow-card': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+            'shadow-soft': '0 20px 25px -5px rgba(0, 119, 182, 0.1), 0 10px 10px -5px rgba(0, 119, 182, 0.04)',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-white">
+
+  <header class="sticky top-0 z-50 w-full bg-background/90 backdrop-blur-md border-b border-border animate-fade-in">
+    <div class="container mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center">
+        <a href="index.html" aria-label="EasyFly Home">
+           <img src="/assets/easyfly_logo.png" alt="EasyFly Logo" class="h-12 md:h-14"> 
+        </a>
+      </div>
+      <nav class="hidden md:flex items-center space-x-6 lg:space-x-8">
+        <a href="index.html" class="text-muted-foreground hover:text-foreground transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-ocean after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Home</a>
+        <a href="services.html" class="text-muted-foreground hover:text-foreground transition-all duration-300">Service</a>
+        <a href="destination.html" class="text-muted-foreground hover:text-foreground transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-ocean after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Destinations</a>
+        <a href="#about" class="text-muted-foreground hover:text-foreground transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-ocean after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">About</a>
+        <a href="#contact" class="text-muted-foreground hover:text-foreground transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-ocean after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Contact</a>
+      </nav>
+      <div class="flex items-center space-x-4">
+        <button class="hidden md:inline-flex bg-blue-600 text-white px-4 py-2 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg">Get Quote</button>
+        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-md hover:bg-gray-100">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-50 md:hidden">
+      <div class="p-4">
+        <button id="closeMobileMenu" class="p-2 rounded-md hover:bg-gray-100 ml-auto">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+        </button>
+        <nav class="mt-8 space-y-4">
+          <a href="index.html" class="block text-muted-foreground hover:text-foreground transition-all duration-300">Home</a>
+          <a href="services.html" class="block text-muted-foreground hover:text-foreground transition-all duration-300">Service</a>
+          <a href="destination.html" class="block text-muted-foreground hover:text-foreground transition-all duration-300">Destinations</a>
+          <a href="#about" class="block text-muted-foreground hover:text-foreground transition-all duration-300">About</a>
+          <a href="#contact" class="block text-muted-foreground hover:text-foreground transition-all duration-300">Contact</a>
+          <button class="w-full bg-blue-600 text-white px-4 py-2 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg">Get Quote</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="relative h-[60vh] flex items-center justify-center text-white overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=2070&auto=format&fit=crop');"></div>
+        <div class="absolute inset-0 bg-black/50"></div>
+      </div>
+      <div class="relative z-10 text-center px-4">
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight animate-fade-in-up">Explore Our Destinations</h1>
+        <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-200 animate-fade-in-up delay-200">Discover amazing places around the world with EasyFly</p>
+      </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section class="py-12 md:py-20 overflow-hidden relative">
+      <!-- Gradient background overlay -->
+      <div class="absolute inset-0 bg-gradient-to-br from-sky-100/70 via-purple-100/70 to-fuchsia-100/70"></div>
+      
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center mb-12 md:mb-16 animate-fade-in" style="opacity:0; animation-fill-mode: forwards;">
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-light text-foreground mb-6">Popular Destinations</h2>
+          <p class="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">Explore our handpicked destinations that offer unforgettable experiences and lasting memories.</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex justify-center mb-8 md:mb-12">
+          <div class="inline-flex rounded-lg bg-gray-100 p-1">
+            <button id="domestic-tab" class="tab-button px-4 md:px-6 py-2 rounded-md text-sm font-medium transition-all duration-300 bg-white text-ocean shadow-sm" onclick="openTab('domestic')">Domestic</button>
+            <button id="international-tab" class="tab-button px-4 md:px-6 py-2 rounded-md text-sm font-medium transition-all duration-300 text-gray-600 hover:text-ocean" onclick="openTab('international')">International</button>
+          </div>
+        </div>
+
+        <!-- Domestic Destinations -->
+        <div id="domestic" class="tab-content active">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 destinations-grid">
+            <div class="destination-card overflow-hidden border-0 shadow-shadow-card hover:shadow-shadow-soft transition-shadow duration-500 group animate-fade-in" style="animation-delay: 0s; animation-fill-mode: forwards; opacity: 0;">
+              <div class="relative h-[400px] md:h-[560px] w-full overflow-hidden rounded-xl">
+                <img src="assets/d1.jpg" alt="Goa - Beaches and nightlife in India's coastal paradise" class="w-full h-full object-cover">
+                <div class="destination-overlay absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-black via-black/80 to-transparent text-white">
+                  <h3 class="text-xl md:text-2xl font-semibold mb-1">Goa</h3>
+                  <p class="text-white/90 mb-4">India</p>
+                  <div class="destination-details">
+                    <div class="price-tag">₹12,500 - ₹25,000</div>
+                    <p class="text-white/90 mb-4 leading-relaxed text-sm">Experience the perfect blend of sun, sand, and sea in this coastal paradise.</p>
+                    <button class="bg-transparent border border-white text-white px-3 py-1.5 rounded-md text-sm transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="destination-card overflow-hidden border-0 shadow-shadow-card hover:shadow-shadow-soft transition-shadow duration-500 group animate-fade-in" style="animation-delay: 0.2s; animation-fill-mode: forwards; opacity: 0;">
+              <div class="relative h-[400px] md:h-[560px] w-full overflow-hidden rounded-xl">
+                <img src="assets/d2.jpg" alt="Kerala - Backwaters and tea plantations in God's own country" class="w-full h-full object-cover">
+                <div class="destination-overlay absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-black via-black/80 to-transparent text-white">
+                  <h3 class="text-xl md:text-2xl font-semibold mb-1">Kerala</h3>
+                  <p class="text-white/90 mb-4">India</p>
+                  <div class="destination-details">
+                    <div class="price-tag">₹15,000 - ₹30,000</div>
+                    <p class="text-white/90 mb-4 leading-relaxed text-sm">Discover the serene backwaters, lush tea plantations, and rich cultural heritage.</p>
+                    <button class="bg-transparent border border-white text-white px-3 py-1.5 rounded-md text-sm transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="destination-card overflow-hidden border-0 shadow-shadow-card hover:shadow-shadow-soft transition-shadow duration-500 group animate-fade-in" style="animation-delay: 0.4s; animation-fill-mode: forwards; opacity: 0;">
+              <div class="relative h-[400px] md:h-[560px] w-full overflow-hidden rounded-xl">
+                <img src="assets/d3.jpg" alt="Rajasthan - Royal heritage and magnificent palaces in India's desert state" class="w-full h-full object-cover">
+                <div class="destination-overlay absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-black via-black/80 to-transparent text-white">
+                  <h3 class="text-xl md:text-2xl font-semibold mb-1">Rajasthan</h3>
+                  <p class="text-white/90 mb-4">India</p>
+                  <div class="destination-details">
+                    <div class="price-tag">₹18,000 - ₹35,000</div>
+                    <p class="text-white/90 mb-4 leading-relaxed text-sm">Immerse yourself in the royal heritage, magnificent palaces, and vibrant culture.</p>
+                    <button class="bg-transparent border border-white text-white px-3 py-1.5 rounded-md text-sm transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="destination-card overflow-hidden border-0 shadow-shadow-card hover:shadow-shadow-soft transition-shadow duration-500 group animate-fade-in" style="animation-delay: 0.6s; animation-fill-mode: forwards; opacity: 0;">
+              <div class="relative h-[400px] md:h-[560px] w-full overflow-hidden rounded-xl">
+                <img src="assets/d4.jpg" alt="Himalayas - Breathtaking mountain landscapes and adventure sports" class="w-full h-full object-cover">
+                <div class="destination-overlay absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-black via-black/80 to-transparent text-white">
+                  <h3 class="text-xl md:text-2xl font-semibold mb-1">Himalayas</h3>
+                  <p class="text-white/90 mb-4">India</p>
+                  <div class="destination-details">
+                    <div class="price-tag">₹20,000 - ₹40,000</div>
+                    <p class="text-white/90 mb-4 leading-relaxed text-sm">Experience breathtaking mountain landscapes, adventure sports, and spiritual retreats.</p>
+                    <button class="bg-transparent border border-white text-white px-3 py-1.5 rounded-md text-sm transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="destination-card overflow-hidden border-0 shadow-shadow-card hover:shadow-shadow-soft transition-shadow duration-500 group animate-fade-in" style="animation-delay: 0.8s; animation-fill-mode: forwards; opacity: 0;">
+              <div class="relative h-[400px] md:h-[560px] w-full overflow-hidden rounded-xl">
+                <img src="assets/d5.jpg" alt="Agra - Home to the timeless Taj Mahal and Mughal architecture" class="w-full h-full object-cover">
+                <div class="destination-overlay absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-black via-black/80 to-transparent text-white">
+                  <h3 class="text-xl md:text-2xl font-semibold mb-1">Agra</h3>
+                  <p class="text-white/90 mb-4">India</p>
+                  <div class="destination-details">
+                    <div class="price-tag">₹10,000 - ₹20,000</div>
+                    <p class="text-white/90 mb-4 leading-relaxed text-sm">Witness the timeless beauty of the Taj Mahal and explore Mughal architecture.</p>
+                    <button class="bg-transparent border border-white text-white px-3 py-1.5 rounded-md text-sm transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="destination-card overflow-hidden border-0 shadow-shadow-card hover:shadow-shadow-soft transition-shadow duration-500 group animate-fade-in" style="animation-delay: 1s; animation-fill-mode: forwards; opacity: 0;">
+              <div class="relative h-[400px] md:h-[560px] w-full overflow-hidden rounded-xl">
+                <img src="assets/d6.jpg" alt="Varanasi - The spiritual heart of India on the sacred banks of the Ganges" class="w-full h-full object-cover">
+                <div class="destination-overlay absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-black via-black/80 to-transparent text-white">
+                  <h3 class="text-xl md:text-2xl font-semibold mb-1">Varanasi</h3>
+                  <p class="text-white/90 mb-4">India</p>
+                  <div class="destination-details">
+                    <div class="price-tag">₹8,000 - ₹18,000</div>
+                    <p class="text-white/90 mb-4 leading-relaxed text-sm">Discover the spiritual heart of India on the sacred banks of the Ganges.</p>
+                    <button class="bg-transparent border border-white text-white px-3 py-1.5 rounded-md text-sm transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="destination-card overflow-hidden border-0 shadow-shadow-card hover:shadow-shadow-soft transition-shadow duration-500 group animate-fade-in" style="animation-delay: 1.2s; animation-fill-mode: forwards; opacity: 0;">
+              <div class="relative h-[400px] md:h-[560px] w-full overflow-hidden rounded-xl">
+                <img src="assets/d7.jpg" alt="Ladakh - High-altitude desert, monasteries, and pristine lakes of the Himalayas" class="w-full h-full object-cover">
+                <div class="destination-overlay absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-black via-black/80 to-transparent text-white">
+                  <h3 class="text-xl md:text-2xl font-semibold mb-1">Ladakh</h3>
+                  <p class="text-white/90 mb-4">India</p>
+                  <div class="destination-details">
+                    <div class="price-tag">₹22,000 - ₹45,000</div>
+                    <p class="text-white/90 mb-4 leading-relaxed text-sm">Explore the high-altitude desert, monasteries, and pristine lakes of the Himalayas.</p>
+                    <button class="bg-transparent border border-white text-white px-3 py-1.5 rounded-md text-sm transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="destination-card overflow-hidden border-0 shadow-shadow-card hover:shadow-shadow-soft transition-shadow duration-500 group animate-fade-in" style="animation-delay: 1.4s; animation-fill-mode: forwards; opacity: 0;">
+              <div class="relative h-[400px] md:h-[560px] w-full overflow-hidden rounded-xl">
+                <img src="assets/d8.jpg" alt="Andaman - Crystal-clear waters, pristine beaches and coral reefs" class="w-full h-full object-cover">
+                <div class="destination-overlay absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-black via-black/80 to-transparent text-white">
+                  <h3 class="text-xl md:text-2xl font-semibold mb-1">Andaman</h3>
+                  <p class="text-white/90 mb-4">India</p>
+                  <div class="destination-details">
+                    <div class="price-tag">₹25,000 - ₹50,000</div>
+                    <p class="text-white/90 mb-4 leading-relaxed text-sm">Dive into crystal-clear waters and explore pristine beaches and coral reefs.</p>
+                    <button class="bg-transparent border border-white text-white px-3 py-1.5 rounded-md text-sm transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- International Destinations -->
+        <div id="international" class="tab-content">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 destinations-grid">
+            <div class="destination-card overflow-hidden border-0 shadow-shadow-card hover:shadow-shadow-soft transition-shadow duration-500 group animate-fade-in" style="animation-delay: 0s; animation-fill-mode: forwards; opacity: 0;">
+              <div class="relative h-[400px] md:h-[560px] w-full overflow-hidden rounded-xl">
+                <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=2070&auto=format&fit=crop" alt="Bali - Vibrant markets, ancient temples, and lush rice terraces in Indonesia" class="w-full h-full object-cover">
+                <div class="destination-overlay absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-black via-black/80 to-transparent text-white">
+                  <h3 class="text-xl md:text-2xl font-semibold mb-1">Bali</h3>
+                  <p class="text-white/90 mb-4">Indonesia</p>
+                  <div class="destination-details">
+                    <div class="price-tag">₹35,000 - ₹70,000</div>
+                    <p class="text-white/90 mb-4 leading-relaxed text-sm">Immerse yourself in vibrant markets, ancient temples, and lush rice terraces.</p>
+                    <button class="bg-transparent border border-white text-white px-3 py-1.5 rounded-md text-sm transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="destination-card overflow-hidden border-0 shadow-shadow-card hover:shadow-shadow-soft transition-shadow duration-500 group animate-fade-in" style="animation-delay: 0.2s; animation-fill-mode: forwards; opacity: 0;">
+              <div class="relative h-[400px] md:h-[560px] w-full overflow-hidden rounded-xl">
+                <img src="assets/d9.jpg" alt="Dubai - Luxury shopping, ultramodern architecture, and vibrant nightlife" class="w-full h-full object-cover">
+                <div class="destination-overlay absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-black via-black/80 to-transparent text-white">
+                  <h3 class="text-xl md:text-2xl font-semibold mb-1">Dubai</h3>
+                  <p class="text-white/90 mb-4">UAE</p>
+                  <div class="destination-details">
+                    <div class="price-tag">₹40,000 - ₹80,000</div>
+                    <p class="text-white/90 mb-4 leading-relaxed text-sm">Experience luxury shopping, ultramodern architecture, and vibrant nightlife.</p>
+                    <button class="bg-transparent border border-white text-white px-3 py-1.5 rounded-md text-sm transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="destination-card overflow-hidden border-0 shadow-shadow-card hover:shadow-shadow-soft transition-shadow duration-500 group animate-fade-in" style="animation-delay: 0.4s; animation-fill-mode: forwards; opacity: 0;">
+              <div class="relative h-[400px] md:h-[560px] w-full overflow-hidden rounded-xl">
+                <img src="assets/d10.jpg" alt="Paris - The city of lights, art, fashion, and gastronomy" class="w-full h-full object-cover">
+                <div class="destination-overlay absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-black via-black/80 to-transparent text-white">
+                  <h3 class="text-xl md:text-2xl font-semibold mb-1">Paris</h3>
+                  <p class="text-white/90 mb-4">France</p>
+                  <div class="destination-details">
+                    <div class="price-tag">₹60,000 - ₹1,20,000</div>
+                    <p class="text-white/90 mb-4 leading-relaxed text-sm">Fall in love with the city of lights, art, fashion, and gastronomy.</p>
+                    <button class="bg-transparent border border-white text-white px-3 py-1.5 rounded-md text-sm transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="destination-card overflow-hidden border-0 shadow-shadow-card hover:shadow-shadow-soft transition-shadow duration-500 group animate-fade-in" style="animation-delay: 0.6s; animation-fill-mode: forwards; opacity: 0;">
+              <div class="relative h-[400px] md:h-[560px] w-full overflow-hidden rounded-xl">
+                <img src="assets/d11.jpg" alt="Maldives - Pristine beaches, crystal-clear waters, and luxurious overwater villas" class="w-full h-full object-cover">
+                <div class="destination-overlay absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-black via-black/80 to-transparent text-white">
+                  <h3 class="text-xl md:text-2xl font-semibold mb-1">Maldives</h3>
+                  <p class="text-white/90 mb-4">Indian Ocean</p>
+                  <div class="destination-details">
+                    <div class="price-tag">₹70,000 - ₹1,50,000</div>
+                    <p class="text-white/90 mb-4 leading-relaxed text-sm">Relax in pristine beaches, crystal-clear waters, and luxurious overwater villas.</p>
+                    <button class="bg-transparent border border-white text-white px-3 py-1.5 rounded-md text-sm transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="destination-card overflow-hidden border-0 shadow-shadow-card hover:shadow-shadow-soft transition-shadow duration-500 group animate-fade-in" style="animation-delay: 0.8s; animation-fill-mode: forwards; opacity: 0;">
+              <div class="relative h-[400px] md:h-[560px] w-full overflow-hidden rounded-xl">
+                <img src="assets/d12.jpg" alt="Singapore - Futuristic cityscape, Gardens by the Bay, and diverse cultural districts" class="w-full h-full object-cover">
+                <div class="destination-overlay absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-black via-black/80 to-transparent text-white">
+                  <h3 class="text-xl md:text-2xl font-semibold mb-1">Singapore</h3>
+                  <p class="text-white/90 mb-4">Singapore</p>
+                  <div class="destination-details">
+                    <div class="price-tag">₹45,000 - ₹90,000</div>
+                    <p class="text-white/90 mb-4 leading-relaxed text-sm">Explore the futuristic cityscape, Gardens by the Bay, and diverse cultural districts.</p>
+                    <button class="bg-transparent border border-white text-white px-3 py-1.5 rounded-md text-sm transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="destination-card overflow-hidden border-0 shadow-shadow-card hover:shadow-shadow-soft transition-shadow duration-500 group animate-fade-in" style="animation-delay: 1s; animation-fill-mode: forwards; opacity: 0;">
+              <div class="relative h-[400px] md:h-[560px] w-full overflow-hidden rounded-xl">
+                <img src="assets/d13.jpg" alt="Switzerland - Alpine landscapes, pristine lakes, and charming mountain villages" class="w-full h-full object-cover">
+                <div class="destination-overlay absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-black via-black/80 to-transparent text-white">
+                  <h3 class="text-xl md:text-2xl font-semibold mb-1">Switzerland</h3>
+                  <p class="text-white/90 mb-4">Europe</p>
+                  <div class="destination-details">
+                    <div class="price-tag">₹80,000 - ₹1,60,000</div>
+                    <p class="text-white/90 mb-4 leading-relaxed text-sm">Discover alpine landscapes, pristine lakes, and charming mountain villages.</p>
+                    <button class="bg-transparent border border-white text-white px-3 py-1.5 rounded-md text-sm transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="destination-card overflow-hidden border-0 shadow-shadow-card hover:shadow-shadow-soft transition-shadow duration-500 group animate-fade-in" style="animation-delay: 1.2s; animation-fill-mode: forwards; opacity: 0;">
+              <div class="relative h-[400px] md:h-[560px] w-full overflow-hidden rounded-xl">
+                <img src="assets/d14.jpg" alt="Thailand - Tropical beaches, ornate temples, and vibrant street life" class="w-full h-full object-cover">
+                <div class="destination-overlay absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-black via-black/80 to-transparent text-white">
+                  <h3 class="text-xl md:text-2xl font-semibold mb-1">Thailand</h3>
+                  <p class="text-white/90 mb-4">Southeast Asia</p>
+                  <div class="destination-details">
+                    <div class="price-tag">₹30,000 - ₹60,000</div>
+                    <p class="text-white/90 mb-4 leading-relaxed text-sm">Experience tropical beaches, ornate temples, and vibrant street life.</p>
+                    <button class="bg-transparent border border-white text-white px-3 py-1.5 rounded-md text-sm transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="destination-card overflow-hidden border-0 shadow-shadow-card hover:shadow-shadow-soft transition-shadow duration-500 group animate-fade-in" style="animation-delay: 1.4s; animation-fill-mode: forwards; opacity: 0;">
+              <div class="relative h-[400px] md:h-[560px] w-full overflow-hidden rounded-xl">
+                <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop" alt="Japan - Ancient traditions, modern technology, and stunning cherry blossoms" class="w-full h-full object-cover">
+                <div class="destination-overlay absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-black via-black/80 to-transparent text-white">
+                  <h3 class="text-xl md:text-2xl font-semibold mb-1">Japan</h3>
+                  <p class="text-white/90 mb-4">East Asia</p>
+                  <div class="destination-details">
+                    <div class="price-tag">₹65,000 - ₹1,30,000</div>
+                    <p class="text-white/90 mb-4 leading-relaxed text-sm">Explore ancient traditions, modern technology, and stunning cherry blossoms.</p>
+                    <button class="bg-transparent border border-white text-white px-3 py-1.5 rounded-md text-sm transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="py-12 md:py-20 relative">
+      <!-- Gradient background overlay -->
+      <div class="absolute inset-0 bg-gradient-to-br from-sky-100/70 via-purple-100/70 to-fuchsia-100/70"></div>
+      
+      <div class="container mx-auto px-4 text-center relative z-10">
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-light text-slate-800 mb-6">Ready to Explore?</h2>
+        <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto mb-8">Let us help you plan your perfect trip to any of these amazing destinations.</p>
+        <button class="bg-blue-600 text-white px-6 md:px-8 py-3 rounded-md text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">Get Quote</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer with gradient background -->
+  <footer class="py-8 md:py-12 relative animate-fade-in" style="opacity:0; animation-fill-mode: forwards;">
+    <!-- Gradient background overlay -->
+    <div class="absolute inset-0 bg-gradient-to-br from-sky-100/70 via-purple-100/70 to-fuchsia-100/70"></div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div class="opacity-0 animate-fade-in" style="animation-delay: 0.1s; animation-fill-mode: forwards;">
+          <div class="mb-4">
+            <img src="/assets/easyfly_logo.png" alt="EasyFly Logo" class="h-10">
+          </div>
+          <p class="text-muted-foreground text-sm leading-relaxed">Your trusted partner in creating unforgettable travel experiences around the world.</p>
+          <div class="mt-4 flex items-center space-x-2">
+            <a href="https://www.instagram.com/easy_fly_?igsh=MWdvd3JkMnRpMjdyZA==" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-br from-yellow-400 via-pink-500 to-purple-500 rounded-lg transition-transform hover:scale-110">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg transition-transform hover:scale-110">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="https://wa.me/919978701119" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg transition-transform hover:scale-110">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.149-.67.149-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.123-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="opacity-0 animate-fade-in" style="animation-delay: 0.2s; animation-fill-mode: forwards;">
+          <h4 class="font-semibold text-foreground mb-4">Services</h4>
+          <ul class="space-y-2 text-sm text-muted-foreground">
+            <li><a href="services.html" class="hover:text-foreground transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-ocean after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Flight Booking</a></li>
+            <li><a href="services.html" class="hover:text-foreground transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-ocean after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Hotel Reservations</a></li>
+            <li><a href="services.html" class="hover:text-foreground transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-ocean after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Tour Packages</a></li>
+            <li><a href="services.html" class="hover:text-foreground transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-ocean after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Travel Insurance</a></li>
+          </ul>
+        </div>
+        <div class="opacity-0 animate-fade-in" style="animation-delay: 0.3s; animation-fill-mode: forwards;">
+          <h4 class="font-semibold text-foreground mb-4">Destinations</h4>
+          <ul class="space-y-2 text-sm text-muted-foreground">
+            <li><a href="destination.html" class="hover:text-foreground transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-ocean after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Bali</a></li>
+            <li><a href="destination.html" class="hover:text-foreground transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-ocean after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Vietnam</a></li>
+            <li><a href="destination.html" class="hover:text-foreground transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-ocean after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Philippines</a></li>
+            <li><a href="destination.html" class="hover:text-foreground transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-ocean after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Georgia</a></li>
+          </ul>
+        </div>
+        <div class="opacity-0 animate-fade-in" style="animation-delay: 0.4s; animation-fill-mode: forwards;">
+          <h4 class="font-semibold text-foreground mb-4">Support</h4>
+          <ul class="space-y-2 text-sm text-muted-foreground">
+            <li><a href="#contact" class="hover:text-foreground transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-ocean after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Help Center</a></li>
+            <li><a href="#contact" class="hover:text-foreground transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-ocean after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Contact Us</a></li>
+            <li><a href="#" class="hover:text-foreground transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-ocean after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Privacy Policy</a></li>
+            <li><a href="#" class="hover:text-foreground transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-ocean after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-200/50 mb-8"></div>
+      <div class="flex flex-col sm:flex-row items-center justify-between text-sm text-muted-foreground opacity-0 animate-fade-in" style="animation-delay: 0.5s; animation-fill-mode: forwards;">
+        <p>© 2025 EasyFly. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/919978701119" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Contact us on WhatsApp">
+    <div class="bg-green-500 hover:bg-green-600 text-white rounded-full p-3 md:p-4 shadow-lg transition-all duration-300 hover:scale-110">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.149-.67.149-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.123-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+      </svg>
+    </div>
+  </a>
+
+  <script>
+    // Tab functionality
+    function openTab(tabName) {
+      // Hide all tab contents
+      const tabContents = document.querySelectorAll('.tab-content');
+      tabContents.forEach(tab => {
+        tab.classList.remove('active');
+      });
+      
+      // Remove active class from all tab buttons
+      const tabButtons = document.querySelectorAll('.tab-button');
+      tabButtons.forEach(button => {
+        button.classList.remove('bg-white', 'text-ocean', 'shadow-sm');
+        button.classList.add('text-gray-600');
+      });
+      
+      // Show the selected tab content
+      document.getElementById(tabName).classList.add('active');
+      
+      // Add active class to the clicked tab button
+      if (tabName === 'domestic') {
+        document.getElementById('domestic-tab').classList.add('bg-white', 'text-ocean', 'shadow-sm');
+        document.getElementById('domestic-tab').classList.remove('text-gray-600');
+      } else {
+        document.getElementById('international-tab').classList.add('bg-white', 'text-ocean', 'shadow-sm');
+        document.getElementById('international-tab').classList.remove('text-gray-600');
+      }
+    }
+    
+    // Mobile menu functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const closeMobileMenu = document.getElementById('closeMobileMenu');
+
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.add('active');
+      });
+
+      closeMobileMenu.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+      });
+
+      // Close mobile menu when clicking on a link
+      const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+      mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('active');
+        });
+      });
+      
+      // Initialize animations on page load
+      // Trigger fade-in animations
+      const fadeElements = document.querySelectorAll('.animate-fade-in');
+      fadeElements.forEach(element => {
+        element.style.opacity = '1';
+      });
+      
+      // Trigger fade-in-up animations
+      const fadeUpElements = document.querySelectorAll('.animate-fade-in-up');
+      fadeUpElements.forEach(element => {
+        element.style.opacity = '1';
+      });
+    });
+  </script>
+</body>
+</html>
