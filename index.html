@@ -103,12 +103,12 @@
       opacity: 1;
     }
 
-    /* WhatsApp floating button styles */
+    /* WhatsApp floating button styles - Updated */
     .whatsapp-float {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      z-index: 100;
+      z-index: 40; /* Lower z-index to ensure it's always visible but below mobile menu */
       animation: pulse 2s infinite;
     }
 
@@ -152,6 +152,11 @@
     .mobile-menu-overlay.active {
       opacity: 1;
       visibility: visible;
+    }
+    
+    /* Header hide on scroll - New */
+    .header-hidden {
+      transform: translateY(-100%);
     }
     
     /* Responsive adjustments */
@@ -206,7 +211,7 @@
 </head>
 <body class="bg-white">
 
-  <header class="sticky top-0 z-50 w-full bg-background/90 backdrop-blur-md border-b border-border animate-fade-in">
+  <header id="mainHeader" class="sticky top-0 z-50 w-full bg-background/90 backdrop-blur-md border-b border-border animate-fade-in transition-transform duration-300">
     <div class="container mx-auto px-4 h-16 flex items-center justify-between">
       <div class="flex items-center">
         <a href="index.html" aria-label="EasyFly Home">
@@ -536,7 +541,7 @@
     </div>
   </footer>
 
-  <!-- WhatsApp Floating Button -->
+  <!-- WhatsApp Floating Button - Moved outside header -->
   <a href="https://wa.me/919978701119" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Contact us on WhatsApp">
     <div class="bg-green-500 hover:bg-green-600 text-white rounded-full p-3 md:p-4 shadow-lg transition-all duration-300 hover:scale-110">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -649,6 +654,42 @@
           mobileMenuOverlay.classList.remove('active');
           document.body.style.overflow = ''; // Restore scrolling
         });
+      });
+
+      // Header hide on scroll functionality - New
+      const mainHeader = document.getElementById('mainHeader');
+      let lastScrollTop = 0;
+      let scrollThreshold = 100; // Threshold before hiding header
+      
+      window.addEventListener('scroll', function() {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Only apply hide/show logic on mobile devices
+        if (window.innerWidth <= 768) {
+          // If we're at the top of the page, always show the header
+          if (scrollTop <= 0) {
+            mainHeader.classList.remove('header-hidden');
+            return;
+          }
+          
+          // If we've scrolled past the threshold and are scrolling down, hide the header
+          if (scrollTop > scrollThreshold && scrollTop > lastScrollTop) {
+            mainHeader.classList.add('header-hidden');
+          } 
+          // If we're scrolling up, show the header
+          else {
+            mainHeader.classList.remove('header-hidden');
+          }
+        }
+        
+        lastScrollTop = scrollTop;
+      });
+      
+      // Reset header visibility when window is resized to desktop view
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+          mainHeader.classList.remove('header-hidden');
+        }
       });
 
       // Trigger fade-in animations
