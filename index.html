@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EasyFly - Your Gateway to the World | Travel Agency</title>
-  <meta name="description" content="EasyFly offers customized travel experiences with tailored flights, stays, and tours. Explore popular destinations like Bali, Vietnam, Philippines, and more.">
-  <meta name="keywords" content="travel agency, flight booking, hotel reservations, tour packages, Bali, Vietnam, Philippines, travel insurance">
+  <meta name="description" content="EasyFly offers customized travel experiences with tailored flights, stays, and tours. Explore popular destinations like Bali, Vietnam, Philippines, and more. Get a free travel quote.">
+  <meta name="keywords" content="travel agency, flight booking, hotel reservations, tour packages, Bali, Vietnam, Philippines, travel insurance, get travel quote">
   <meta name="author" content="EasyFly Travel Agency">
   <meta name="robots" content="index, follow">
   
@@ -240,6 +240,13 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* Set min date color to be visible */
+    input[type="date"]:in-range::-webkit-datetime-edit-year-field,
+    input[type="date"]:in-range::-webkit-datetime-edit-month-field,
+    input[type="date"]:in-range::-webkit-datetime-edit-day-field {
+        color: black;
+    }
   </style>
 
   <script>
@@ -283,7 +290,8 @@
         <a href="contact.html" class="text-muted-foreground hover:text-foreground transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-ocean after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Contact</a>
       </nav>
       <div class="flex items-center space-x-4">
-        <button class="hidden md:inline-flex bg-blue-600 text-white px-4 py-2 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg">Get Quote</button>
+        <!-- Added get-quote-btn class -->
+        <button class="hidden md:inline-flex bg-blue-600 text-white px-4 py-2 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg get-quote-btn">Get Quote</button>
         <button id="mobileMenuBtn" class="md:hidden p-2 rounded-md hover:bg-gray-100 relative">
           <!-- Hamburger Menu Icon -->
           <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
@@ -306,7 +314,8 @@
         <a href="services.html" class="block text-muted-foreground hover:text-foreground transition-all duration-300">Service</a>
         <a href="#about" class="block text-muted-foreground hover:text-foreground transition-all duration-300">About</a>
         <a href="contact.html" class="block text-muted-foreground hover:text-foreground transition-all duration-300">Contact</a>
-        <button class="w-full bg-blue-600 text-white px-4 py-2 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg">Get Quote</button>
+        <!-- Added get-quote-btn class -->
+        <button class="w-full bg-blue-600 text-white px-4 py-2 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg get-quote-btn">Get Quote</button>
       </nav>
     </div>
   </div>
@@ -607,6 +616,73 @@
     </div>
   </a>
 
+  <!-- Get Quote Modal -->
+  <div id="quoteModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 transition-opacity duration-300 opacity-0 pointer-events-none">
+    <div id="quoteModalContent" class="bg-white rounded-lg shadow-xl w-full max-w-lg overflow-hidden transition-transform duration-300 translate-y-4 scale-95">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between p-4 md:p-6 border-b">
+        <h2 class="text-xl md:text-2xl font-semibold text-gray-800">Get a Travel Estimate</h2>
+        <button id="closeQuoteModal" class="text-gray-400 hover:text-gray-600 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+        </button>
+      </div>
+      <!-- Modal Body -->
+      <div class="max-h-[70vh] overflow-y-auto">
+        <form id="quoteForm" class="p-4 md:p-6 space-y-4">
+          <div>
+            <label for="quoteName" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+            <input type="text" id="quoteName" name="name" required class="w-full p-3 rounded-md bg-gray-50 border-gray-300 placeholder:text-gray-400 text-black focus-visible:ring-2 focus-visible:ring-blue-500 border">
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="quoteEmail" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+              <input type="email" id="quoteEmail" name="email" required class="w-full p-3 rounded-md bg-gray-50 border-gray-300 placeholder:text-gray-400 text-black focus-visible:ring-2 focus-visible:ring-blue-500 border">
+            </div>
+            <div>
+              <label for="quotePhone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+              <input type="tel" id="quotePhone" name="phone" placeholder="+91 12345 67890" class="w-full p-3 rounded-md bg-gray-50 border-gray-300 placeholder:text-gray-400 text-black focus-visible:ring-2 focus-visible:ring-blue-500 border">
+            </div>
+          </div>
+          <div>
+            <label for="quoteDestination" class="block text-sm font-medium text-gray-700 mb-1">Your Destination</label>
+            <input type="text" id="quoteDestination" name="destination" placeholder="e.g., Bali, Vietnam" class="w-full p-3 rounded-md bg-gray-50 border-gray-300 placeholder:text-gray-400 text-black focus-visible:ring-2 focus-visible:ring-blue-500 border">
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="quoteFromDate" class="block text-sm font-medium text-gray-700 mb-1">From Date</label>
+              <input type="date" id="quoteFromDate" name="fromDate" class="w-full p-3 rounded-md bg-gray-50 border-gray-300 placeholder:text-gray-400 text-black focus-visible:ring-2 focus-visible:ring-blue-500 border" style="color-scheme: light;">
+            </div>
+            <div>
+              <label for="quoteToDate" class="block text-sm font-medium text-gray-700 mb-1">To Date</label>
+              <input type="date" id="quoteToDate" name="toDate" class="w-full p-3 rounded-md bg-gray-50 border-gray-300 placeholder:text-gray-400 text-black focus-visible:ring-2 focus-visible:ring-blue-500 border" style="color-scheme: light;">
+            </div>
+          </div>
+          <div>
+            <label for="quoteTravelers" class="block text-sm font-medium text-gray-700 mb-1">No. of Travelers</label>
+            <input type="number" id="quoteTravelers" name="travelers" min="1" value="1" class="w-full p-3 rounded-md bg-gray-50 border-gray-300 placeholder:text-gray-400 text-black focus-visible:ring-2 focus-visible:ring-blue-500 border">
+          </div>
+          <div>
+            <label for="quoteMessage" class="block text-sm font-medium text-gray-700 mb-1">Additional Details</label>
+            <textarea id="quoteMessage" name="message" rows="3" placeholder="Tell us more about your ideal trip..." class="w-full p-3 rounded-md bg-gray-50 border-gray-300 placeholder:text-gray-400 text-black focus-visible:ring-2 focus-visible:ring-blue-500 border"></textarea>
+          </div>
+          <!-- Modal Footer -->
+          <div class="pt-4 border-t">
+            <button type="submit" class="w-full bg-blue-600 text-white hover:bg-blue-700 transition-all duration-300 text-base py-3 rounded-md font-semibold">Request Estimate</button>
+          </div>
+        </form>
+        <!-- Success Message -->
+        <div id="quoteSuccessMessage" class="p-4 md:p-10 text-center hidden">
+          <svg class="mx-auto w-16 h-16 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          <h3 class="text-xl md:text-2xl font-semibold text-gray-800 mt-4">Thank You!</h3>
+          <p class="text-gray-600 mt-2">Your quote request has been submitted. We will get back to you shortly.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <script>
     // Hero Slideshow functionality
     document.addEventListener('DOMContentLoaded', function() {
@@ -741,6 +817,145 @@
           el.style.opacity = '1';
         }, index * 200);
       });
+
+      // --- Get Quote Modal Functionality ---
+      const quoteModal = document.getElementById('quoteModal');
+      const quoteModalContent = document.getElementById('quoteModalContent');
+      const closeQuoteModalBtn = document.getElementById('closeQuoteModal');
+      const quoteButtons = document.querySelectorAll('.get-quote-btn');
+      const quoteForm = document.getElementById('quoteForm');
+      const quoteSuccessMessage = document.getElementById('quoteSuccessMessage');
+      const quoteFromDate = document.getElementById('quoteFromDate');
+      const quoteToDate = document.getElementById('quoteToDate');
+
+      const openModal = () => {
+        // Reset form on open
+        quoteForm.classList.remove('hidden');
+        quoteSuccessMessage.classList.add('hidden');
+        quoteForm.reset(); 
+        
+        // Set min date for date picker to today
+        try {
+          const today = new Date().toISOString().split("T")[0];
+          quoteFromDate.min = today;
+          quoteToDate.min = today;
+        } catch(e) {
+          console.error("Could not set min date: ", e);
+        }
+        
+        quoteModal.classList.remove('opacity-0', 'pointer-events-none');
+        quoteModalContent.classList.remove('translate-y-4', 'scale-95');
+        document.body.style.overflow = 'hidden'; // Prevent background scroll
+      };
+
+      const closeModal = () => {
+        quoteModal.classList.add('opacity-0', 'pointer-events-none');
+        quoteModalContent.classList.add('translate-y-4', 'scale-95');
+        document.body.style.overflow = ''; // Restore background scroll
+        
+        // Use a slight delay to ensure form is reset *after* modal is hidden
+        // so user doesn'con see the flash of content change.
+        setTimeout(() => {
+          quoteForm.classList.remove('hidden');
+          quoteSuccessMessage.classList.add('hidden');
+        }, 300); // Match transition duration
+      };
+
+      // Open modal when any "Get Quote" button is clicked
+      quoteButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault(); // Prevent default button behavior
+          
+          // If this button is inside the mobile menu, close the menu first
+          if (mobileMenu.contains(btn)) {
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+            menuIcon.classList.remove('hidden');
+            closeIcon.classList.remove('visible');
+            // We need to restore scrolling briefly so the modal can take over
+            document.body.style.overflow = ''; 
+          }
+          
+          openModal();
+        });
+      });
+
+      // Close modal using the 'X' button
+      closeQuoteModalBtn.addEventListener('click', closeModal);
+
+      // Close modal when clicking on the overlay
+      quoteModal.addEventListener('click', (e) => {
+        if (e.target === quoteModal) {
+          closeModal();
+        }
+      });
+
+      // Add event listener to update 'To Date' min value
+      quoteFromDate.addEventListener('change', () => {
+          if (quoteFromDate.value) {
+              quoteToDate.min = quoteFromDate.value;
+              // Also update value if it's now invalid
+              if (quoteToDate.value < quoteFromDate.value) {
+                  quoteToDate.value = quoteFromDate.value;
+              }
+          }
+      });
+
+      // Handle form submission
+      quoteForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        console.log('Form submitted!');
+        
+        // Get form data
+        const formData = new FormData(quoteForm);
+        const name = formData.get('name');
+        const email = formData.get('email');
+        const phone = formData.get('phone');
+        const destination = formData.get('destination');
+        const fromDate = formData.get('fromDate');
+        const toDate = formData.get('toDate');
+        const travelers = formData.get('travelers');
+        const message = formData.get('message');
+
+        // Create mailto link
+        const mailtoSubject = `Travel Quote Request for ${destination || 'a trip'}`;
+        const mailtoBody = `
+Hello, I'd like a travel quote.
+
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Destination: ${destination}
+From Date: ${fromDate}
+To Date: ${toDate}
+No. of Travelers: ${travelers}
+
+Additional Details:
+${message}
+        `.trim(); // Use trim() to remove leading/trailing whitespace
+
+        // Encode components
+        const mailtoLink = `mailto:jayuvora03@gmail.com?subject=${encodeURIComponent(mailtoSubject)}&body=${encodeURIComponent(mailtoBody)}`;
+        
+        // Open email client
+        try {
+            window.location.href = mailtoLink;
+        } catch(e) {
+            console.error("Could not open mailto link: ", e);
+        }
+
+        // Hide form, show success message
+        quoteForm.classList.add('hidden');
+        quoteSuccessMessage.classList.remove('hidden');
+
+        // You would typically send the form data to a server here
+        // fetch('/api/quote', { method: 'POST', body: new FormData(quoteForm) })
+        //   .then(...)
+        
+        // Do NOT close the modal automatically. Let the user close it.
+      });
+      // --- End Quote Modal Functionality ---
+
     });
   </script>
 
